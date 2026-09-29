@@ -1,11 +1,11 @@
 package co.touchlab.stately.concurrency
 
 import kotlin.concurrent.AtomicInt
+import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 private var localThreadId: Int = 0
 
-@SharedImmutable
 private val threadIdCounter = AtomicInt(1)
 
 private fun currentThreadId(): Int {

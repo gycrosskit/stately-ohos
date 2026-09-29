@@ -17,6 +17,8 @@
 
 package co.touchlab.stately.concurrency
 
+import kotlin.native.concurrent.ThreadLocal
+
 actual open class ThreadLocalRef<T> actual constructor() {
     private val threadLocalId = ThreadLocalIdCounter.nextThreadLocalId()
 
