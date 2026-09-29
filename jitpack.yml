@@ -1,4 +1,4 @@
 jdk:
   - openjdk17
 install:
-  - ./gradlew -p stately-probe publishToMavenLocal --no-daemon
+  - bash jitpack-install.sh
