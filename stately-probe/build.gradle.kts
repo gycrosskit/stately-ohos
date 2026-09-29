@@ -3,13 +3,13 @@ plugins {
 }
 
 subprojects {
-    group = "co.touchlab"
-    version = "2.1.0-ohos-2.2.21-2"
+    group = providers.environmentVariable("RELEASE_GROUP").orElse("co.touchlab").get()
+    version = providers.environmentVariable("VERSION").orElse("2.1.0-ohos-2.2.21-6").get()
     plugins.apply("maven-publish")
     extensions.configure<org.gradle.api.publish.PublishingExtension> {
         repositories.maven {
             name = "gycrosskit"
-            url = uri(providers.gradleProperty("gycrosskitMavenRepo").orElse(rootProject.file("../docs/maven").absolutePath).get())
+            url = uri(providers.gradleProperty("gycrosskitMavenRepo").orElse(rootProject.file("../build/release-maven").absolutePath).get())
         }
     }
 }
