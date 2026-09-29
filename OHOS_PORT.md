@@ -14,8 +14,8 @@ implementation("co.touchlab:stately-concurrent-collections:2.1.0-ohos-2.2.21-1")
 产物包括 `stately-strict`、`stately-concurrency`、`stately-concurrent-collections` 及其 Gradle Module Metadata，发布目录为 `docs/maven`。鸿蒙 `Lock` 使用现有 POSIX/Linux 实现；Native 线程标注和冻结辅助函数按当前 Kotlin/Native 编译器调整。
 
 ```bash
-bash ../koin-ohos/projects/gradlew -p stately-probe :stately-concurrent-collections:compileKotlinOhosArm64
-bash ../koin-ohos/projects/gradlew -p stately-probe :stately-strict:publishAllPublicationsToGycrosskitRepository :stately-concurrency:publishAllPublicationsToGycrosskitRepository :stately-concurrent-collections:publishAllPublicationsToGycrosskitRepository
+bash gradlew -p stately-probe :stately-concurrent-collections:compileKotlinOhosArm64
+bash gradlew -p stately-probe :stately-strict:publishAllPublicationsToGycrosskitRepository :stately-concurrency:publishAllPublicationsToGycrosskitRepository :stately-concurrent-collections:publishAllPublicationsToGycrosskitRepository
 ```
 
 尚未验证设备运行或 Android/iOS 变体。本分支只保证上述 OHOS 产物的编译与依赖解析。
