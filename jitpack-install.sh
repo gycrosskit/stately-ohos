@@ -12,9 +12,15 @@ python3 - <<'PY'
 import json
 from pathlib import Path
 # JitPack rewrites classified source/metadata JAR URLs to missing plain JARs.
+changed = 0
 for root in (Path.home() / '.m2/repository/com/github/gycrosskit/stately-ohos', Path('build/release-maven')):
     for file in root.rglob('*.module'):
         data = json.loads(file.read_text())
-        data['variants'] = [v for v in data['variants'] if not v['name'].endswith(('SourcesElements-published', 'MetadataElements-published'))]
-        file.write_text(json.dumps(data, indent=2))
+        variants = [v for v in data['variants'] if not v['name'].endswith(('SourcesElements-published', 'MetadataElements-published'))]
+        if len(variants) != len(data['variants']):
+            data['variants'] = variants
+            file.write_text(json.dumps(data, indent=2))
+            changed += 1
+if not changed:
+    raise SystemExit('No JitPack KMP metadata variants were fixed')
 PY
