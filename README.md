@@ -14,8 +14,8 @@ maven { url = uri("https://jitpack.io") }
 
 ```kotlin
 commonMain.dependencies {
-    implementation("com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-8")
-    implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-8")
+    implementation("com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-9")
+    implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-9")
 }
 ```
 
