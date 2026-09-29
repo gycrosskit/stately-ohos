@@ -14,12 +14,13 @@ maven { url = uri("https://jitpack.io") }
 
 ```kotlin
 commonMain.dependencies {
-    implementation("com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-7")
-    implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-7")
+    implementation("com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-8")
+    implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-8")
 }
 ```
 
 此版本还发布 `stately-strict`，提供 JVM（供 Android 使用）、`iosArm64`、`iosSimulatorArm64`、`iosX64` 和 `ohosArm64` 变体。iOS KLIB 在 macOS 构建，版本化归档由 GitHub Release 保存，再经 JitPack 提供 Maven 依赖。
+新版本在 JitPack Maven 坐标下保留上游 `co.touchlab` KLIB 身份，以兼容使用官方 Stately 构建的 Native 依赖；同一消费工程中仍须把官方 Stately Maven 依赖替换为本 fork，避免装入两套同名 KLIB。
 
 ## 验证范围
 

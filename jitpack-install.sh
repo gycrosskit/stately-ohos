@@ -3,7 +3,7 @@ set -euo pipefail
 
 archive=stately-maven.tar.gz
 curl -fL --retry 3 -o "$archive" "https://github.com/gycrosskit/stately-ohos/releases/download/${VERSION}/${archive}"
-echo "3353ad6b32e45c150fce89b5f9d56dfa900f61a980ba2035170cf1ff53553635  $archive" | sha256sum -c -
+echo "dc23b70be85d3d8fb26b639c91142591f07773c87b9d07eb6cc1ddada5bee11f  $archive" | sha256sum -c -
 mkdir -p "$HOME/.m2/repository"
 tar -xzf "$archive" -C "$HOME/.m2/repository"
 mkdir -p build/release-maven
