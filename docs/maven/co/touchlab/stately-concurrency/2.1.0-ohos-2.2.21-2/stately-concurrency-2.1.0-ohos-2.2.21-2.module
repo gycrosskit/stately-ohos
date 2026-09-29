@@ -1,0 +1,317 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "co.touchlab",
+    "module": "stately-concurrency",
+    "version": "2.1.0-ohos-2.2.21-2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.11"
+    }
+  },
+  "variants": [
+    {
+      "name": "metadataApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "co.touchlab",
+          "module": "stately-strict",
+          "version": {
+            "requires": "2.1.0-ohos-2.2.21-2"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.21-1.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "stately-concurrency-metadata-2.1.0-ohos-2.2.21-2.jar",
+          "url": "stately-concurrency-2.1.0-ohos-2.2.21-2.jar",
+          "size": 12230,
+          "sha512": "83f0c4f4ba21e61a94f9a611dd9038293cc4c0f63b6894b8dc3d4bee41b688d0183afe61915a81627dc3847f66cf93a479627fbecb20792db8d75e8661b5e231",
+          "sha256": "f6597ca81e468a2b293b36083858e562764c8ef2272ebd6a339c44da076fe6e1",
+          "sha1": "442ab8f1e0bf1689f958718dead4b43a2e3d0b42",
+          "md5": "f04073dcdda5dd15a2bb70e8069cb07d"
+        }
+      ]
+    },
+    {
+      "name": "metadataSourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "files": [
+        {
+          "name": "stately-concurrency-kotlin-2.1.0-ohos-2.2.21-2-sources.jar",
+          "url": "stately-concurrency-2.1.0-ohos-2.2.21-2-sources.jar",
+          "size": 12641,
+          "sha512": "7f4fb944b8a1906bb3c5099f7ed138d552b09db4c47f5aff7fc145a50c39ade259823654e40f4bbc9c97dfedc7c4f7f8d3ccf33dc91201fdf1923a78e7afbcdb",
+          "sha256": "3e36e5322d50b5c1444bd2f55472e3087e7d8f15abed65c609d29d26a9afc657",
+          "sha1": "d27ce03031745dfd44390a376bef1656ed74c772",
+          "md5": "21977e6be0a916d5e24e31113e40aa1c"
+        }
+      ]
+    },
+    {
+      "name": "iosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iosarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-iosarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iosarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iosarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-iosarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iosarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iosarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-iosarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iosarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iossimulatorarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-iossimulatorarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iossimulatorarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iossimulatorarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-iossimulatorarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iossimulatorarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iossimulatorarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-iossimulatorarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iossimulatorarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iosx64/2.1.0-ohos-2.2.21-2/stately-concurrency-iosx64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iosx64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iosx64/2.1.0-ohos-2.2.21-2/stately-concurrency-iosx64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iosx64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "iosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-iosx64/2.1.0-ohos-2.2.21-2/stately-concurrency-iosx64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-iosx64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "jvmApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-jvm/2.1.0-ohos-2.2.21-2/stately-concurrency-jvm-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-jvm",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "jvmRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-jvm/2.1.0-ohos-2.2.21-2/stately-concurrency-jvm-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-jvm",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "jvmSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-jvm/2.1.0-ohos-2.2.21-2/stately-concurrency-jvm-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-jvm",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "ohosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ohos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-ohosarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-ohosarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-ohosarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    },
+    {
+      "name": "ohosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ohos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../stately-concurrency-ohosarm64/2.1.0-ohos-2.2.21-2/stately-concurrency-ohosarm64-2.1.0-ohos-2.2.21-2.module",
+        "group": "co.touchlab",
+        "module": "stately-concurrency-ohosarm64",
+        "version": "2.1.0-ohos-2.2.21-2"
+      }
+    }
+  ]
+}

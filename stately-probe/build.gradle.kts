@@ -4,7 +4,7 @@ plugins {
 
 subprojects {
     group = "co.touchlab"
-    version = "2.1.0-ohos-2.2.21-1"
+    version = "2.1.0-ohos-2.2.21-2"
     plugins.apply("maven-publish")
     extensions.configure<org.gradle.api.publish.PublishingExtension> {
         repositories.maven {
