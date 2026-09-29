@@ -1,99 +1,28 @@
-> `gycrosskit` 的鸿蒙适配与依赖接入见 [OHOS_PORT.md](OHOS_PORT.md)；以下是上游 Stately 文档。
+# Stately OpenHarmony 适配
 
-# Stately
+本分支基于上游 Stately 2.1.0，使用 Kotlin `2.2.21-1.0.0`，为 Android、iOS、OpenHarmony 的 KMP 共享模块提供并发原语与线程安全集合。详细构建与验证说明见 [OHOS_PORT.md](OHOS_PORT.md)；上游英文介绍保存在 [README_EN.md](README_EN.md)。
 
-Stately is a state utility library to facilitate state management in Kotlin Multiplatform. It was originally written to facilitate development with the strict Kotlin/Native memory model. As of Kotlin 1.7.20, the strict model is deprecated, and the [releveant modules of Stately have also been deprecated](deprecated) but are still published and available.
+## 引入依赖
 
-Stately currently provides concurrencly primitives and concurrent collections. 
-
-## stately-concurrency
-
-`stately-concurrency` includes some concurrency support classes. These include a set of `Atomicxxx` classes, a `Lock`, a `ThreadLocal` container, a `Synchronizable` type, and a class `ThreadRef` that allows you to hold a thread id.
-
-Much of the functionality of this module is similar to [atomic-fu](https://github.com/Kotlin/kotlinx.atomicfu). They differ in some ways, so while they both cover much of the same ground, Stately's version still has some use.
-
-`ThreadRef` is unique to Stately. It allows you to capture a reference to the id of the thread in which it was created, and ask if the current thread is the same. Just FYI, it does *not* keep a reference to the actual thread. Just an id. Usage looks like this:
+在 `settings.gradle.kts` 的 `dependencyResolutionManagement.repositories` 中加入 JitPack：
 
 ```kotlin
-fun useRef(){
-  val threadRef = ThreadRef()
-  threadRef.same() // <- true
-  backgroundThread {
-    threadRef.same() // <- false
-  }
-}
+maven { url = uri("https://jitpack.io") }
 ```
 
-The `Synchronizable` type allows us to use the JVM's `synchronized` but in common, and with Kotlin/Native which doesn't natively support it. 
+在共享模块中按需引入：
 
 ```kotlin
-class MyMutableData(private var count: Int = 0) : Synchronizable() {
-    fun add() {
-        synchronize { count++ }
-    }
-
-    val myCount: Int
-        get() = synchronize { count }
+commonMain.dependencies {
+    implementation("com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-7")
+    implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-7")
 }
 ```
 
-Your type should extend `Synchronizable`, which on the JVM is typealiased to `Any`. Then you can use `synchronize` as in the example above. 
+此版本还发布 `stately-strict`，提供 JVM（供 Android 使用）、`iosArm64`、`iosSimulatorArm64`、`iosX64` 和 `ohosArm64` 变体。iOS KLIB 在 macOS 构建，版本化归档由 GitHub Release 保存，再经 JitPack 提供 Maven 依赖。
 
-### Config
+## 验证范围
 
-```groovy
-commonMain {
-    dependencies {
-        implementation("co.touchlab:stately-concurrency:2.0.0")
-    }
-}
-```
+三端消费通过 Koin 仓库的独立验证工程检查：Android 编译、iOS 编译与模拟器 Framework 链接、OHOS 动态库链接，以及 JVM 注入运行检查。iOS/OHOS 设备运行尚未验证。
 
-## stately-concurrent-collections
-
-A set of relatively simple mutable collections that are thread safe.
-
-```kotlin
-val list = ConcurrentMutableList<Int>()
-val list.add(42)
-```
-
-### Config
-
-```groovy
-commonMain {
-    dependencies {
-        implementation("co.touchlab:stately-concurrent-collections:2.0.0")
-    }
-}
-```
-
-> ## Subscribe!
->
-> We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
- [Sign up here](https://go.touchlab.co/newsletter-gh)!
-
-## Primary Maintainer
-
-[Kevin Galligan](https://github.com/kpgalligan/)
-
-![Image of Kevin](https://avatars.githubusercontent.com/u/68384?s=140&v=4)
-
-*Ping me on twitter [@kpgalligan](https://twitter.com/kpgalligan/) if you don't get a timely reply!* -Kevin
-
-License
-=======
-
-    Copyright 2024 Touchlab, Inc.
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-       http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+许可证见 [LICENSE.txt](LICENSE.txt)。
