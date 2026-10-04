@@ -34,13 +34,13 @@ dependencyResolutionManagement {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-9")
+            implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-10")
         }
     }
 }
 ```
 
-仅需原子变量和锁时，改用 `com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-9`。消费者依赖根模块即可，由 Gradle 元数据选择平台产物。
+仅需原子变量和锁时，改用 `com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-10`。消费者依赖根模块即可，由 Gradle 元数据选择平台产物。
 
 ## 快速使用
 
@@ -68,7 +68,7 @@ configurations.configureEach {
     resolutionStrategy.dependencySubstitution {
         listOf("stately-strict", "stately-concurrency", "stately-concurrent-collections").forEach { name ->
             substitute(module("co.touchlab:$name"))
-                .using(module("com.github.gycrosskit.stately-ohos:$name:2.1.0-ohos-2.2.21-9"))
+                .using(module("com.github.gycrosskit.stately-ohos:$name:2.1.0-ohos-2.2.21-10"))
         }
     }
 }
