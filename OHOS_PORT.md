@@ -18,7 +18,10 @@ implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collection
 VERSION=2.1.0-ohos-2.2.21-9 \
   bash gradlew -p stately-probe publishAllPublicationsToGycrosskitRepository \
   -PgycrosskitMavenRepo=/path/to/staging
-COPYFILE_DISABLE=1 tar -czf stately-maven.tar.gz -C /path/to/staging .
+python3 prepare-jitpack-maven.py /path/to/staging
+COPYFILE_DISABLE=1 tar --no-xattrs -czf stately-maven.tar.gz -C /path/to/staging .
 ```
 
 三端消费由 `koin-ohos/verification-consumer` 验证：Android 编译、iOS 编译/模拟器 Framework 链接、OHOS 动态库链接及 JVM 注入运行检查。尚未验证 iOS/OHOS 设备运行。
+
+本地未发布修复补齐根 `metadataSourcesElements` 正规化，并在归档前重算已有 `.module` 校验和；JitPack 安装器不再改写归档字节。已发布版本的 API/Native 变体可用，但来源变体 URL 被改写为 API JAR；不能把编译通过视为所有变体正确。新版本须重新构建归档、核对引用/校验值并更新安装器 SHA，不覆盖旧标签或归档。回归入口：`python3 scripts/test-jitpack-metadata.py`。
