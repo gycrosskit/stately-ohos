@@ -15,6 +15,6 @@ python3 prepare-jitpack-maven.py /path/to/staging
 COPYFILE_DISABLE=1 tar --no-xattrs -czf stately-ohos-maven.tar.gz -C /path/to/staging .
 ```
 
-三端消费由 [Koin 独立消费工程](https://github.com/gycrosskit/koin-ohos/tree/codex/ohos-4.1.1/verification-consumer) 验证：Android 编译、iOS 编译/模拟器 Framework 链接、OHOS 动态库链接及 JVM 注入运行检查。尚未验证 iOS/OHOS 设备运行。
+`2.1.0-ohos-2.2.21-10` 的真实 JitPack 坐标已由 [Koin 独立消费工程](https://github.com/gycrosskit/koin-ohos/tree/codex/ohos-4.1.1/verification-consumer) 验证：Android 编译、iOS 三目标编译与 arm64/模拟器 Framework 链接、OHOS 动态库链接及 JVM 注入运行检查。官方 Koin Compose 4.1.1 与 fork 在默认 Native 缓存下也已链接。尚未验证 iOS/OHOS 设备运行。
 
-本次发布准备补齐根 `metadataSourcesElements` 正规化，并在归档前重算已有 `.module` 校验和；JitPack 安装器不再改写归档字节。已发布版本的 API/Native 变体可用，但来源变体 URL 被改写为 API JAR；不能把编译通过视为所有变体正确。新版本须重新构建归档、核对引用/校验值并更新安装器 SHA，不覆盖旧标签或归档。回归入口：`python3 scripts/test-jitpack-metadata.py`。
+新版本归档已在发布前规范化根 `metadataSourcesElements` 并重算校验和；JitPack 安装器只安装校验后的相同字节。18 个真实远程 publication 的 POM、全部变体文件、大小、四种声明哈希、ZIP CRC、available-at 与内部依赖均通过，Release 重下载 SHA-256 一致。JitPack 额外生成的 root identity redirect 和高阶 sidecar 返回 404，作为渠道边界单独记录；公开 MD5/SHA-1 及所有必要变体引用正常。回归入口：`python3 scripts/test-jitpack-metadata.py`。旧标签和归档未覆盖。
