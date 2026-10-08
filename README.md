@@ -1,5 +1,7 @@
 # GY CrossKit Stately OpenHarmony
 
+本库提供基础设施 Core，CMP/Kuikly 使用相同平台实现；没有独立 UI 模块。 五种消费入口、公开功能组、平台限制及 **2.1.0-ohos-2.2.21-11**的验证范围见 [功能与平台差异](docs/功能与平台差异.md)。发布状态以对应 [Release](https://github.com/gycrosskit/stately-ohos/releases/tag/2.1.0-ohos-2.2.21-11) 为准；设备验收边界见功能页。
+
 为 Android、iOS 和 OpenHarmony 的 Kotlin Multiplatform 共享代码提供原子变量、锁及线程安全集合。基于 [Touchlab Stately 2.1.0](https://github.com/touchlab/Stately)，保留 `co.touchlab.stately` API，增加 `ohosArm64` 发布变体。
 
 ## 模块与平台
@@ -100,13 +102,13 @@ dependencyResolutionManagement {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-10")
+            implementation("com.github.gycrosskit.stately-ohos:stately-concurrent-collections:2.1.0-ohos-2.2.21-11")
         }
     }
 }
 ```
 
-仅需原子变量和锁时，改用 `com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-10`。消费者依赖根模块即可，由 Gradle 元数据选择平台产物。
+仅需原子变量和锁时，改用 `com.github.gycrosskit.stately-ohos:stately-concurrency:2.1.0-ohos-2.2.21-11`。消费者依赖根模块即可，由 Gradle 元数据选择平台产物。
 
 ## 快速使用
 
@@ -134,7 +136,7 @@ configurations.configureEach {
     resolutionStrategy.dependencySubstitution {
         listOf("stately-strict", "stately-concurrency", "stately-concurrent-collections").forEach { name ->
             substitute(module("co.touchlab:$name"))
-                .using(module("com.github.gycrosskit.stately-ohos:$name:2.1.0-ohos-2.2.21-10"))
+                .using(module("com.github.gycrosskit.stately-ohos:$name:2.1.0-ohos-2.2.21-11"))
         }
     }
 }

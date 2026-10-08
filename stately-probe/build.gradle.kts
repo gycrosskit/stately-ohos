@@ -5,7 +5,7 @@ plugins {
 subprojects {
     // Native KLIB names must match upstream dependencies compiled into Koin Compose.
     group = "co.touchlab"
-    version = providers.environmentVariable("VERSION").orElse("2.1.0-ohos-2.2.21-10").get()
+    version = providers.environmentVariable("VERSION").orElse("2.1.0-ohos-2.2.21-11").get()
     plugins.apply("maven-publish")
     extensions.configure<org.gradle.api.publish.PublishingExtension> {
         publications.withType<org.gradle.api.publish.maven.MavenPublication>().configureEach {
