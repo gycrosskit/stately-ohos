@@ -16,11 +16,22 @@ class ConcurrentMutableMap<K, V> internal constructor(
     override val size: Int
         get() = syncTarget.synchronize { del.size }
     override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
-        get() = syncTarget.synchronize { ConcurrentMutableSet(this, del.entries) }
+        get() = syncTarget.synchronize {
+            object : MutableSet<MutableMap.MutableEntry<K, V>> by ConcurrentMutableSet(syncTarget, del.entries) {
+                override fun equals(other: Any?): Boolean = this === other || syncTarget.synchronize { del.toMap().entries } == other
+                override fun hashCode(): Int = syncTarget.synchronize { del.toMap().entries }.hashCode()
+                override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> = syncTarget.synchronize {
+                    val iterator = ConcurrentMutableIterator(syncTarget, del.entries.iterator())
+                    object : MutableIterator<MutableMap.MutableEntry<K, V>> by iterator {
+                        override fun next(): MutableMap.MutableEntry<K, V> = ConcurrentMutableMapEntry(syncTarget, iterator.next())
+                    }
+                }
+            }
+        }
     override val keys: MutableSet<K>
-        get() = syncTarget.synchronize { ConcurrentMutableSet(this, del.keys) }
+        get() = syncTarget.synchronize { ConcurrentMutableSet(syncTarget, del.keys) }
     override val values: MutableCollection<V>
-        get() = syncTarget.synchronize { ConcurrentMutableCollection(this, del.values) }
+        get() = syncTarget.synchronize { ConcurrentMutableCollection(syncTarget, del.values) }
 
     override fun containsKey(key: K): Boolean = syncTarget.synchronize { del.containsKey(key) }
     override fun containsValue(value: V): Boolean = syncTarget.synchronize { del.containsValue(value) }
@@ -49,17 +60,24 @@ class ConcurrentMutableMap<K, V> internal constructor(
     }
 
     override fun put(key: K, value: V): V? = syncTarget.synchronize { del.put(key, value) }
+    @Suppress("UNCHECKED_CAST")
     override fun putAll(from: Map<out K, V>) {
-        syncTarget.synchronize { del.putAll(from) }
+        if (from === this) return
+        val snapshot = if (from is ConcurrentMutableMap<*, *>) from.snapshot() as Map<out K, V> else from.toMap()
+        syncTarget.synchronize { del.putAll(snapshot) }
     }
 
     override fun remove(key: K): V? = syncTarget.synchronize { del.remove(key) }
 
+    private fun snapshot(): Map<K, V> = syncTarget.synchronize { del.toMap() }
+
+    // Compare snapshots outside the lock so comparing two collections cannot acquire roots in opposite order.
+    override fun equals(other: Any?): Boolean = this === other || snapshot() == other
+    override fun hashCode(): Int = snapshot().hashCode()
+
     fun <R> block(f: (MutableMap<K, V>) -> R): R = syncTarget.synchronize {
         val wrapper = MutableMapWrapper(del)
-        val result = f(wrapper)
-        wrapper.map = mutableMapOf()
-        result
+        try { f(wrapper) } finally { wrapper.delegate = null }
     }
 }
 
@@ -86,7 +104,10 @@ internal class ConcurrentMutableListIterator<E>(
     }
 }
 
-internal class MutableMapWrapper<K, V>(internal var map: MutableMap<K, V>) : MutableMap<K, V> {
+internal class MutableMapWrapper<K, V>(internal var delegate: MutableMap<K, V>?) : MutableMap<K, V> {
+    private val map: MutableMap<K, V> get() = checkNotNull(delegate) { "Map block has ended" }
+    override fun equals(other: Any?): Boolean = this === other || map == other
+    override fun hashCode(): Int = map.hashCode()
     override val size: Int
         get() = map.size
 
@@ -111,9 +132,22 @@ internal class MutableMapWrapper<K, V>(internal var map: MutableMap<K, V>) : Mut
 
     override fun put(key: K, value: V): V? = map.put(key, value)
 
+    @Suppress("UNCHECKED_CAST")
     override fun putAll(from: Map<out K, V>) {
         map.putAll(from)
     }
 
     override fun remove(key: K): V? = map.remove(key)
+}
+
+private class ConcurrentMutableMapEntry<K, V>(
+    private val root: Synchronizable,
+    private val entry: MutableMap.MutableEntry<K, V>,
+) : MutableMap.MutableEntry<K, V> {
+    override val key: K get() = root.synchronize { entry.key }
+    override val value: V get() = root.synchronize { entry.value }
+    override fun setValue(newValue: V): V = root.synchronize { entry.setValue(newValue) }
+    override fun equals(other: Any?): Boolean = other is Map.Entry<*, *> && key == other.key && value == other.value
+    override fun hashCode(): Int = (key?.hashCode() ?: 0) xor (value?.hashCode() ?: 0)
+    override fun toString(): String = "$key=$value"
 }

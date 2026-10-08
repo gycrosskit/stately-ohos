@@ -8,12 +8,17 @@ class ConcurrentMutableSet<E> internal constructor(rootArg: Synchronizable?, pri
     MutableSet<E> {
     constructor() : this(null, mutableSetOf())
 
+    // Compare snapshots outside the lock so comparing two collections cannot acquire roots in opposite order.
+    override fun equals(other: Any?): Boolean = this === other || syncTarget.synchronize { del.toSet() } == other
+    override fun hashCode(): Int = syncTarget.synchronize { del.toSet() }.hashCode()
+
     fun <R> block(f: (MutableSet<E>) -> R): R = syncTarget.synchronize {
         val wrapper = MutableSetWrapper(del)
-        val result = f(wrapper)
-        wrapper.set = mutableSetOf()
-        result
+        try { f(wrapper) } finally { wrapper._coll = null }
     }
 }
 
-internal class MutableSetWrapper<E>(internal var set: MutableSet<E>) : MutableCollectionWrapper<E>(set), MutableSet<E>
+internal class MutableSetWrapper<E>(set: MutableSet<E>) : MutableCollectionWrapper<E>(set), MutableSet<E> {
+    override fun equals(other: Any?): Boolean = this === other || checkNotNull(_coll) == other
+    override fun hashCode(): Int = checkNotNull(_coll).hashCode()
+}

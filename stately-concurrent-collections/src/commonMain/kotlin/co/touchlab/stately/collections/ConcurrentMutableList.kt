@@ -18,31 +18,36 @@ class ConcurrentMutableList<E> internal constructor(rootArg: Synchronizable?, pr
     }
 
     override fun addAll(index: Int, elements: Collection<E>): Boolean =
-        syncTarget.synchronize { del.addAll(index, elements) }
+        withElements(elements) { del.addAll(index, it) }
 
     override fun listIterator(): MutableListIterator<E> =
-        syncTarget.synchronize { ConcurrentMutableListIterator(this, del.listIterator()) }
+        syncTarget.synchronize { ConcurrentMutableListIterator(syncTarget, del.listIterator()) }
 
     override fun listIterator(index: Int): MutableListIterator<E> =
-        syncTarget.synchronize { ConcurrentMutableListIterator(this, del.listIterator(index)) }
+        syncTarget.synchronize { ConcurrentMutableListIterator(syncTarget, del.listIterator(index)) }
 
     override fun removeAt(index: Int): E = syncTarget.synchronize { del.removeAt(index) }
 
     override fun set(index: Int, element: E): E = syncTarget.synchronize { del.set(index, element) }
 
     override fun subList(fromIndex: Int, toIndex: Int): MutableList<E> =
-        syncTarget.synchronize { ConcurrentMutableList(this, del.subList(fromIndex, toIndex)) }
+        syncTarget.synchronize { ConcurrentMutableList(syncTarget, del.subList(fromIndex, toIndex)) }
+
+    // Compare snapshots outside the lock so comparing two collections cannot acquire roots in opposite order.
+    override fun equals(other: Any?): Boolean = this === other || syncTarget.synchronize { del.toList() } == other
+    override fun hashCode(): Int = syncTarget.synchronize { del.toList() }.hashCode()
 
     fun <R> block(f: (MutableList<E>) -> R): R = syncTarget.synchronize {
         val wrapper = MutableListWrapper(del)
-        val result = f(wrapper)
-        wrapper.list = mutableListOf()
-        result
+        try { f(wrapper) } finally { wrapper._coll = null }
     }
 }
 
-internal class MutableListWrapper<E>(internal var list: MutableList<E>) : MutableCollectionWrapper<E>(list),
+internal class MutableListWrapper<E>(list: MutableList<E>) : MutableCollectionWrapper<E>(list),
     MutableList<E> {
+    private val list: MutableList<E> get() = checkNotNull(_coll) as MutableList<E>
+    override fun equals(other: Any?): Boolean = this === other || list == other
+    override fun hashCode(): Int = list.hashCode()
     override fun get(index: Int): E = list.get(index)
 
     override fun indexOf(element: E): Int = list.indexOf(element)

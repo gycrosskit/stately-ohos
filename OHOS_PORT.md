@@ -1,6 +1,10 @@
 # Stately OHOS 适配
 
-此分支基于上游 `2.1.0`，使用 Kotlin `2.2.21-1.0.0`，发布 JVM（Android 使用）、`iosArm64`、`iosSimulatorArm64`、`iosX64` 和 `ohosArm64` 变体。三端共用请使用 `-10`。
+**最终核对入口（2026-10-08）**：[测试源码、执行平台、前轮复用与本轮重跑](docs/功能与平台差异.md#验证结果与测试入口)。下列构建/发布命令与已有版本记录保留原范围，不能套用为候选新执行结果。
+
+2026-10-08 的 Core/CMP/Kuikly 消费映射、候选修复和未验收范围见[功能与平台差异](docs/功能与平台差异.md)；下文已有 tag 的验收保留为历史事实，修复交付版本为 `2.1.0-ohos-2.2.21-11`，发布状态以 Release 为准。
+
+此分支基于上游 `2.1.0`，使用 Kotlin `2.2.21-1.0.0`，发布 JVM（Android 使用）、`iosArm64`、`iosSimulatorArm64`、`iosX64` 和 `ohosArm64` 变体。三端共用请使用 `-11`。
 
 消费者的模块选择、坐标及官方依赖替换见 [README](README.md#安装)。
 
@@ -8,7 +12,7 @@
 构建时使用上游 `co.touchlab` 生成 KLIB 身份，Maven Publication 则使用 JitPack 所需的 `com.github.gycrosskit.stately-ohos`；不要把项目 `group` 改为 JitPack 组名，否则官方 Native 依赖的 `depends` 无法正确匹配。
 
 ```bash
-VERSION=2.1.0-ohos-2.2.21-10 \
+VERSION=2.1.0-ohos-2.2.21-11 \
   bash gradlew -p stately-probe publishAllPublicationsToGycrosskitRepository \
   -PgycrosskitMavenRepo=/path/to/staging
 python3 prepare-jitpack-maven.py /path/to/staging
