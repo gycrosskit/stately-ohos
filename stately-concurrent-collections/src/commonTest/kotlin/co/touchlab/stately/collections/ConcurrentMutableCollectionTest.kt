@@ -3,6 +3,7 @@ package co.touchlab.stately.collections
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class ConcurrentMutableCollectionTest {
@@ -23,8 +24,9 @@ class ConcurrentMutableCollectionTest {
             coll.add(SomeData("count $count"))
         }) { coll ->
             repeat(2_000) { count ->
-                coll.contains(SomeData("count $count"))
+                assertTrue(coll.contains(SomeData("count $count")))
             }
+            assertFalse(coll.contains(SomeData("missing")))
         }
     }
 
@@ -37,7 +39,8 @@ class ConcurrentMutableCollectionTest {
             coll.add(someData)
             checkList.add(someData)
         }) { coll ->
-            coll.containsAll(checkList)
+            assertTrue(coll.containsAll(checkList))
+            assertFalse(coll.containsAll(checkList + SomeData("missing")))
         }
     }
 
