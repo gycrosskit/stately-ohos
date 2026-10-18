@@ -52,6 +52,10 @@ jobs:
                 repositories.withType(org.gradle.api.artifacts.repositories.MavenArtifactRepository).matching { it.url.host == 'maven.eazytec-cloud.com' }.all {
                     content { includeVersionByRegex('.*', '.*', '.*-1\\.0\\.0') }
                 }
+                repositories.withType(org.gradle.api.artifacts.repositories.MavenArtifactRepository).matching { it.url.host == 'mirrors.tencent.com' }.all {
+                    // The mirror serves testhelp metadata but omits its Native KLIB.
+                    content { excludeModuleByRegex('co[.]touchlab', 'testhelp(-.*)?') }
+                }
             }
         }
         GRADLE
@@ -118,6 +122,10 @@ jobs:
             [settings.pluginManagement.repositories, settings.dependencyResolutionManagement.repositories].each { repositories ->
                 repositories.withType(org.gradle.api.artifacts.repositories.MavenArtifactRepository).matching { it.url.host == 'maven.eazytec-cloud.com' }.all {
                     content { includeVersionByRegex('.*', '.*', '.*-1\\.0\\.0') }
+                }
+                repositories.withType(org.gradle.api.artifacts.repositories.MavenArtifactRepository).matching { it.url.host == 'mirrors.tencent.com' }.all {
+                    // The mirror serves testhelp metadata but omits its Native KLIB.
+                    content { excludeModuleByRegex('co[.]touchlab', 'testhelp(-.*)?') }
                 }
             }
         }
