@@ -12,5 +12,10 @@ kotlin {
         commonMain.dependencies {
             api(project(":stately-concurrency"))
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation("co.touchlab:testhelp:0.6.12")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+        }
     }
 }

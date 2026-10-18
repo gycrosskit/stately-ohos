@@ -16,17 +16,16 @@
 
 package co.touchlab.stately.strict
 
-import co.touchlab.testhelp.isFrozen
-import kotlin.experimental.ExperimentalNativeApi
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertSame
 
 class HelpersTest {
-    @OptIn(ExperimentalNativeApi::class)
     @Test
     fun maybeFreezeTest(){
-        val h = Heyo("hello").maybeFreeze()
-        assertEquals(h.isFrozen, Platform.memoryModel == MemoryModel.STRICT && Platform.isFreezingEnabled)
+        val original = Heyo("hello")
+        assertSame(original, original.maybeFreeze())
+        assertFalse(strictMemoryModel)
     }
 
     data class Heyo(val s:String)

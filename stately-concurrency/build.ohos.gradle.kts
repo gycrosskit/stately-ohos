@@ -12,6 +12,10 @@ kotlin {
         commonMain.dependencies {
             api(project(":stately-strict"))
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation("co.touchlab:testhelp:0.6.12")
+        }
         ohosArm64Main {
             // OHOS 提供 POSIX pthread，沿用已有 Linux Lock 实现。
             kotlin.srcDir("src/linuxMain/kotlin")

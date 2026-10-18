@@ -1,6 +1,6 @@
 # GY CrossKit Stately OpenHarmony
 
-本库提供基础设施 Core，CMP/Kuikly 使用相同平台实现；没有独立 UI 模块。 五种消费入口、公开功能组、平台限制及 **2.1.0-ohos-2.2.21-11**的验证范围见 [功能与平台差异](docs/功能与平台差异.md)。发布状态以对应 [Release](https://github.com/gycrosskit/stately-ohos/releases/tag/2.1.0-ohos-2.2.21-11) 为准；设备验收边界见功能页。
+本库提供基础设施 Core，原生宿主与 Kuikly 使用相同平台实现；没有独立 UI 模块。三端消费入口、公开功能组、平台限制及 **2.1.0-ohos-2.2.21-11**的验证范围见 [功能与平台差异](docs/功能与平台差异.md)。发布状态以对应 [Release](https://github.com/gycrosskit/stately-ohos/releases/tag/2.1.0-ohos-2.2.21-11) 为准；设备验收边界见功能页。
 
 为 Android、iOS 和 OpenHarmony 的 Kotlin Multiplatform 共享代码提供原子变量、锁及线程安全集合。基于 [Touchlab Stately 2.1.0](https://github.com/touchlab/Stately)，保留 `co.touchlab.stately` API，增加 `ohosArm64` 发布变体。
 

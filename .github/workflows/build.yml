@@ -8,6 +8,7 @@ on:
 
 jobs:
   deploy:
+    if: github.repository == 'touchlab/Stately'
     runs-on: macos-latest
     steps:
       - name: Checkout the repo
