@@ -3,7 +3,7 @@ plugins {
 }
 
 subprojects {
-    // Native KLIB names must match upstream dependencies compiled into Koin Compose.
+    // Keep the published upstream Native KLIB identity; the Maven group below is fork-specific.
     group = "co.touchlab"
     version = providers.environmentVariable("VERSION").orElse("2.1.0-ohos-2.2.21-11").get()
     plugins.apply("maven-publish")
