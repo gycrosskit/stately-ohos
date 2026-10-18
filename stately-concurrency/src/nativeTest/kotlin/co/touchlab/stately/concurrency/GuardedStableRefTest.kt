@@ -2,7 +2,6 @@ package co.touchlab.stately.concurrency
 
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
-import kotlin.native.concurrent.freeze
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -23,7 +22,7 @@ class GuardedStableRefTest {
         _w = Worker.start()
         g = w.execute(TransferMode.SAFE, {}) {
             GuardedStableRef(MutData(1))
-        }.result.freeze()
+        }.result
     }
 
     @AfterTest
@@ -48,7 +47,7 @@ class GuardedStableRefTest {
 
     @Test
     fun mutateStateInThread() {
-        val newMut = w.execute(TransferMode.SAFE, { g.freeze() }) {
+        val newMut = w.execute(TransferMode.SAFE, { g }) {
             val mut = it.state
             mut.c = 42
 
