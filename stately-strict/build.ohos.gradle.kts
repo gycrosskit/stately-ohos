@@ -8,4 +8,7 @@ kotlin {
     iosSimulatorArm64()
     iosX64()
     ohosArm64()
+    sourceSets.commonTest.dependencies {
+        implementation(kotlin("test"))
+    }
 }
